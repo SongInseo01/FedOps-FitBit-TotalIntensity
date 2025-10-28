@@ -152,6 +152,25 @@ def load_and_prepare(csv_path: str, window_size: int, batch_size):
     }
     return train_loader, val_loader, test_loader, meta
 
+def load_partition(dataset, validation_split, batch_size):
+    """
+    The variables train_loader, val_loader, and test_loader must be returned fixedly.
+    """
+    now = datetime.now()
+    now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+    fl_task = {"dataset": dataset, "start_execution_time": now_str}
+    fl_task_json = json.dumps(fl_task)
+    logging.info(f'FL_Task - {fl_task_json}')
+
+
+    # iscal setting
+    WINDOW_SIZE = 30
+    CSV_PATH = "/home/ubuntu/isfolder/fl_agent_paper/buildmodel/content/hourlyIntensities_merged.csv"
+    train_loader, val_loader, test_loader, meta = load_and_prepare(CSV_PATH, WINDOW_SIZE, batch_size)
+
+
+    return train_loader, val_loader, test_loader
+
 # def gl_model_torch_validation(batch_size):
 #     """
 #     Setting up a dataset to evaluate a global model on the server
