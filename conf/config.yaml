@@ -1,0 +1,37 @@
+# Common
+random_seed: 42
+
+learning_rate: 0.001 # Input model's learning rate
+
+model_type: "Pytorch" # This value should be maintained
+model:
+  _target_: models.HourlyIntensityLSTM # Input your custom model
+  output_size: 10 # Input your model's output size (only classification)
+
+dataset:
+  name: "hourlyIntensities" # Input your data name
+  validation_split: 0.1 # Ratio of dividing train data by validation
+
+# client
+task_id: "isintensity" # Input your Task Name that you register in FedOps Website
+
+wandb:
+  use: false # Whether to use wandb
+  key: "your wandb api key" # Input your wandb api key
+  account: "your wandb account" # Input your wandb account
+  project: "${dataset.name}_${task_id}"
+
+# server
+num_epochs: 10 # number of local epochs
+batch_size: 32
+num_rounds: 10 # Number of rounds to perform
+clients_per_round: 1 # Number of clients participating in the round
+
+server:
+  strategy:
+    _target_: flwr.server.strategy.FedAvg # aggregation algorithm
+    fraction_fit: 1.0
+    fraction_evaluate: 1.0
+    min_fit_clients: ${clients_per_round} # Minimum number of clients to participate in training
+    min_available_clients: ${clients_per_round} # Minimum number of clients to participate in a round
+    min_evaluate_clients: ${clients_per_round} # Minimum number of clients to participate in evaluation
