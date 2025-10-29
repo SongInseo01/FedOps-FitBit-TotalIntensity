@@ -22,10 +22,10 @@ wandb:
   project: "${dataset.name}_${task_id}"
 
 # server
-num_epochs: 10 # number of local epochs
+num_epochs: 20 # number of local epochs
 batch_size: 32
 num_rounds: 10 # Number of rounds to perform
-clients_per_round: 1 # Number of clients participating in the round
+clients_per_round: 3 # Number of clients participating in the round
 
 server:
   strategy:

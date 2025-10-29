@@ -198,7 +198,7 @@ def load_and_prepare(csv_path: str, window_size: int, batch_size):
     return train_loader, val_loader, test_loader, meta
 
 WINDOW_SIZE = 30
-CSV_PATH = "/home/ubuntu/isfolder/fl_agent_paper/buildmodel/content/hourlyIntensities_merged.csv"
+CSV_PATH = "./data/hourlyIntensities_merged.csv"
 # CSV_PATH = "/app/code/data/hourlyIntensities_merged.csv" # for server
 batch_size = 32
 train_loader, val_loader, test_loader, meta = load_and_prepare(CSV_PATH, WINDOW_SIZE, batch_size)
